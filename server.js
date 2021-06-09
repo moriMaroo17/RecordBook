@@ -13,26 +13,53 @@ const port = 3000;
 
 const { MongoClient } = pkg;
 const mongoClient = new MongoClient("mongodb://localhost:27017/", { useUnifiedTopology: true });
+const url = 'mongodb://localhost:27017/'
 
-mongoClient.connect(function (err, client) {
+// mongoClient.connect(function (err, client) {
 
-  if (err) {
-    return console.log(err);
-  } else {
-    console.log('connection established');
-  }
-  // database interaction 
-  client.close();
-});
+//   if (err) {
+//     return console.log(err);
+//   } else {
+//     console.log('connection established');
+//   }
+//   // database interaction 
+//   client.close();
+// });
+
 
 app.set('view engine', 'ejs');
 app.use(express.static(join(__dirname, '/views')));
 
 app.get('/', (req, res) => {
-  res.render('pages/index');
+
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("recordbookdb");
+    // var query = { address: "Park Lane 38" };
+    dbo.collection("students").find().toArray(function(err, result) {
+      if (err) throw err;
+      console.log(result);
+      res.render('pages/index', {students: result});
+      db.close();
+    });
+  });
+
+  // res.render('pages/index', {students: result});
 })
 
 app.get('/profile', (req, res) => {
+
+  mongoClient.connect(function (err, client) {
+
+    if (err) {
+      return console.log(err);
+    } else {
+      console.log('connection established');
+    }
+    // database interaction 
+    client.close();
+  });
+
   res.render('pages/profile');
 })
 

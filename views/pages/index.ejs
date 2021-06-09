@@ -24,7 +24,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <% for(var i=0; i<students.length; i++) {%>
+            <tr>
+              <th scope="row"><%= i+1 %></th>
+              <td><%= students[i]['first_name'] %></td>
+              <td><%= students[i]['last_name'] %></td>
+              <td>@student</td>
+            </tr>
+          <% } %>
+          <!-- <tr>
             <th scope="row">1</th>
             <td>Mark</td>
             <td>Otto</td>
@@ -41,7 +49,7 @@
             <td>Larry</td>
             <td>the Bird</td>
             <td>@twitter</td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
     </div>
