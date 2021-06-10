@@ -11,25 +11,23 @@
 
   <main>
     <div class="jumbotron">
-      <h1>Home</h1>
+      <h1>Math records</h1>
       <p>Welcome to templating using EJS</p>
 
       <table class="table">
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Date</th>
+            <th scope="col">Record</th>
           </tr>
         </thead>
         <tbody>
-          <% for(var i=0; i<students.length; i++) {%>
+          <% for (var i=0; i<Object.entries(records).length; i++) {%>
             <tr>
-              <th scope="row"><%= i+1 %></th>
-              <td><%= students[i]['first_name'] %></td>
-              <td><%= students[i]['last_name'] %></td>
-              <td>@student</td>
+              <th scope="row"><%= i+1%></th>
+              <td><%= Object.entries(records)[i][0] %></td>
+              <td><%= Object.entries(records)[i][1] %></td>
             </tr>
           <% } %>
         </tbody>
